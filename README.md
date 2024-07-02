@@ -81,9 +81,30 @@ Go to src/embs_Experiments/embs_Llama.py
           "bnb_4bit_compute_dtype": torch.bfloat16
       }
 
-## 4. Feature Selection & Eval classifiers
+## 4. Simple model classifier
+Once embeddings are generated, go to src/models/classification.py
 
-Once embeddings are extracted, perform feature selection & training of classifiers with different number of features:
+- Select the dataset to use: e.g. (DS = "counseilChat") 
+- Select the model from which we want to use the embeddings to train the classifiers: e.g (MODEL_PATH = 'meta-llama/Llama-2-7b-chat-hf')
+- Select the list of models to train. Keys indicate the model from dict_model_param, and the list of values, the hyperparameters to eval for each
+of the parameter selected in each case (e.g. 1: [0.001], indicates to train an SVC model from sklearn with C=0.001).
+  - list_models_params = {1:[0.001,0.01,0.1,1.0,10,100],
+                          2:[0.001,0.01,0.1,1.0,10,100],
+                          #5:[0.2,0.4,0.5,0.6,0.8,1.0],
+                          6:[0.001,0.01,0.1,1.0,10,100],
+                          7:[5,10,15,20,25,30],
+                          8:[0],
+                          9:[5,10,15,20,25,30],
+                          10:[5,10,15,20,25,30,40,50,60,70,80,90],
+                          11: ['(80)', '(80,80)', '(80,80,80)'],
+                          }
+
+  
+
+
+## 5. Feature Selection & Eval classifiers
+
+Perform feature selection & training of the top classifiers with different number of features:
 
     python3 src/models/embs_Experiments/feature_selection/featureSelection.py 
     --dataset_name counseilChat --model_name meta-llama/Llama-2-7b-chat-hf --feature_selection 1
@@ -106,6 +127,13 @@ Plot graphics for comparing models:
 
 ## Citation:
 TO ADD ONCE PUBLISHED WITH THE REST OF THE CODE
+
+
+
+### License:
+Apache 2.0.
+
+
 
 
 
